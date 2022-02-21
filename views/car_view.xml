@@ -1,0 +1,111 @@
+<odoo>
+  <data>
+
+    <!-- Tree view -->
+
+    <record model="ir.ui.view" id="race_app.car_model_list">
+      <field name="name">Car List</field>
+      <field name="model">race_app.car_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="number"/>
+          <field name="name"/>
+          <field name="team_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form view -->
+
+    <record model="ir.ui.view" id="race_app.car_model_form">
+      <field name="name">Car Form</field>
+      <field name="model">race_app.car_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <group>
+              <h1>General data: </h1>
+              <field name="photo" widget="image"/>
+              <field name="number"/>
+              <field name="team_id"/>
+              <button name="randomNumber" type="object" string="Random car number" class="oe_highlight"/>
+              <field name="brand"/>
+              <field name="model"/>
+              <field name="year"/>
+            </group>
+            <group>
+              <h1>Performance data: </h1>
+              <field name="hp"/>
+              <field name="zeroToOneHundred"/>
+              <field name="traction"/>
+              <field name="fuel"/>
+            </group>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Kanban view-->
+    <record model="ir.ui.view" id="race_app.car_model_kanban">
+      <field name="name">Car Kanban</field>
+      <field name="model">race_app.car_model</field>
+      <field name="arch" type="xml">  
+        <kanban>
+          <field name="number"/>
+          <field name="photo"/>
+          <field name="brand"/>
+          <field name="model"/>
+          <field name="year"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="photo" nolabel="1" widget="image" class="oe_right oe_avatar"/>
+                </div>
+
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="number" class="oe_inline"/>
+                  </strong>
+                  <div t-if="record.brand.value">
+                    <t t-esc="record.brand.value"/>
+                  </div>
+                  <div t-if="record.model.value">
+                    <t t-esc="record.model.value"/>
+                  </div>
+                  <div t-if="record.year.value">
+                    <t t-esc="record.year.value"/>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- Search view -->
+
+    <record model="ir.ui.view" id="race_app.car_model_search">
+      <field name="name">Car Search</field>
+      <field name="model">race_app.car_model</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <filter string="Rear wheel drive: " name="rwd" domain="[('traction','=','r')]"/>
+          <filter string="Front wheel drive: " name="fwd" domain="[('traction','=','f')]"/>
+          <filter string="All wheel drive: " name="awd" domain="[('traction','=','a')]"/>
+        </search>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="race_app.action_window_car">
+      <field name="name">car Window</field>
+      <field name="res_model">race_app.car_model</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+  </data>
+</odoo>

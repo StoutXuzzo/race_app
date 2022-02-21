@@ -1,0 +1,62 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="race_app.circuit_model_list">
+      <field name="name">Circuit List</field>
+      <field name="model">race_app.circuit_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="km"/>
+          <field name="routeType"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form view -->
+
+    <record model="ir.ui.view" id="race_app.circuit_model_form">
+      <field name="name">Circuit Form</field>
+      <field name="model">race_app.circuit_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="photo" widget="image"/>
+            <field name="name"/>
+            <field name="km"/>
+            <field name="floor"/>
+            <field name="routeType"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Search view -->
+
+    <record model="ir.ui.view" id="race_app.circuit_model_search">
+      <field name="name">circuit Search</field>
+      <field name="model">race_app.circuit_model</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <filter string="Show circuits" name="circuits" domain="[('routeType','=','c')]"/>
+          <filter string="Show sections" name="sections" domain="[('routeType','=','s')]"/>
+          <filter string="Asphalt circuits" name="asphalt" domain="[('floor','=','a')]"/>
+          <filter string="Grave circuits" name="grave" domain="[('floor','=','g')]"/>
+          <filter string="Soil circuits" name="soil" domain="[('floor','=','s')]"/>
+          <filter string="Mixed circuits" name="mixed" domain="[('floor','=','m')]"/>
+        </search>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="race_app.action_window_circuit">
+      <field name="name">circuit Window</field>
+      <field name="res_model">race_app.circuit_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</odoo>

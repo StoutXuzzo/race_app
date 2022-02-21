@@ -1,0 +1,138 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="race_app.pilot_model_list">
+      <field name="name">Pilot List</field>
+      <field name="model">race_app.pilot_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id"/>
+          <field name="name"/>
+          <field name="surname"/>
+          <field name="phone"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form view 
+    notebooks, attr, decoratons, filtros, kanban, grafico, pivot, calendar-->
+
+    <record model="ir.ui.view" id="race_app.pilot_model_form">
+      <field name="name">Pilot Form</field>
+      <field name="model">race_app.pilot_model</field>
+      <field name="arch" type="xml">        
+        <form>
+          <sheet>
+            <notebook>
+              <page string="Pilot data">
+                <group name="top">
+                  <group name="right"> 
+                    <field name="photo" widget="image"/>
+                    <field name="id"/>
+                    <field name="dni"/>
+                  </group>
+                  <group name="left">
+                    <field name="name"/>
+                    <field name="surname"/>
+                    <field name="gender"/>
+                    <field name="phone" widget="phone"/>
+                    <field name="email" widget="email"/>
+                  </group>
+                </group>
+              </page>
+              <page string="Race data">
+                <group>
+                  <field name="team_id"/>
+                  <field name="noWin" attrs="{'invisible': [(True)]}"/>
+                  <field name="winNum" attrs="{'invisible': [('noWin','=','n')]}"/>
+                  <field name="race_ids" attrs="{'invisible': [('noWin','=','n')]}"/> <!-- attrs = "{'invisible':[('noWin','=','n')]}" PRODUCE ERRORES RAROS -->
+                  <fields name="winNum"/>
+                  <field name="piloted_ids"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+     <!-- Kanban view-->
+     <record model="ir.ui.view" id="race_app.pilot_model_kanban">
+      <field name="name">Pilot Kanban</field>
+      <field name="model">race_app.pilot_model</field>
+      <field name="arch" type="xml">  
+        <kanban>  
+          <field name="dni"/>
+          <field name="name"/>
+          <field name="surname"/>
+          <field name="photo"/>
+          <field name="email"/>
+          <field name="phone"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="photo" nolabel="1" widget="image" class="oe_right oe_avatar"/>
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="surname" class="oe_inline"/>,<field name="name" class="oe_inline"/>
+                  </strong>
+                  <div t-if="record.phone.value">
+                    <t t-esc="record.phone.value"/>
+                  </div>
+                  <div t-if="record.email.value">
+                    <t t-esc="record.email.value"/>
+                  </div>
+                  <div t-if="record.dni.value">
+                    <t t-esc="record.dni.value"/>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+
+    <!-- Graph view -->
+    <record model="ir.ui.view" id="race_app.pilot_model_graph">
+      <field name="name">pilot graph</field>
+      <field name="model">race_app.pilot_model</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="name" type="row"/>
+          <field name="winNum" type="measure"/>
+        </graph>
+      </field>
+    </record>
+
+    <!-- Pivot view -->
+    <record model="ir.ui.view" id="race_app.pilot_model_pivot">
+      <field name="name">Pilot Pivot</field>
+      <field name="model">race_app.pilot_model</field>
+      <field name="arch" type="xml">
+        <pivot>
+          <field name="dni" type="row"/>
+          <field name="name"/>
+          <field name="surname"/>
+          <field name="gender"/>
+          <field name="winNum"/>
+          <field name="team_id"/>
+        </pivot>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="race_app.action_window_pilot">
+      <field name="name">Pilot Window</field>
+      <field name="res_model">race_app.pilot_model</field>
+      <field name="view_mode">tree,form,kanban,graph,pivot</field>
+    </record>
+
+  </data>
+</odoo>

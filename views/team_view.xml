@@ -1,0 +1,70 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="race_app.team_model_list">
+      <field name="name">Team List</field>
+      <field name="model">race_app.team_model</field>
+      <field name="arch" type="xml">
+        <tree decoration-danger="pilotNum &lt; 1">
+          <field name="name"/>
+          <field name="pilotNum"/>
+          <field name="carNum"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form view -->
+
+    <record model="ir.ui.view" id="race_app.team_model_form">
+      <field name="name">Team Form</field>
+      <field name="model">race_app.team_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="photo" widget="image"/>
+            <field name="name"/>
+            <field name="pilot_ids"/>
+            <field name="car_ids"/>
+            <field name="pilotNum"/>
+            <field name="carNum"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Graph view -->
+
+    <record model="ir.ui.view" id="race_app.team_model_graph">
+      <field name="name">Race graph</field>
+      <field name="model">race_app.team_model</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="name" type="row"/>
+          <field name="pilotNum" type="measure"/>
+        </graph>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="race_app.team_model_graph">
+      <field name="name">Race graph</field>
+      <field name="model">race_app.team_model</field>
+      <field name="arch" type="xml">
+        <graph type="bar">
+          <field name="name" type="row"/>
+          <field name="carNum" type="measure"/>
+        </graph>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="race_app.action_window_team">
+      <field name="name">team Window</field>
+      <field name="res_model">race_app.team_model</field>
+      <field name="view_mode">tree,form,graph</field>
+    </record>
+
+  </data>
+</odoo>

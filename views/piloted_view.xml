@@ -1,0 +1,48 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="race_app.piloted_model_list">
+      <field name="name">Piloted List</field>
+      <field name="model">race_app.piloted_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="pilot_id"/>
+          <field name="car_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form view -->
+
+    <record model="ir.ui.view" id="race_app.piloted_model_form">
+      <field name="name">Piloted Form</field>
+      <field name="model">race_app.piloted_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <group>
+              <h1>Pilot data: </h1>
+              <field name="pilot_id"/>
+              <field name="car_id"/>
+            </group>
+            <group>
+              <h1>Race history: </h1>
+              <field name="race_ids"/>
+            </group>
+          </group>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="race_app.action_window_piloted">
+      <field name="name">Piloted Window</field>
+      <field name="res_model">race_app.piloted_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </data>
+</odoo>

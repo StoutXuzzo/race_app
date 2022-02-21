@@ -1,0 +1,61 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="race_app.race_model_list">
+      <field name="name">Race List</field>
+      <field name="model">race_app.race_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="circuit_id"/>
+          <field name="date"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form view -->
+
+    <record model="ir.ui.view" id="race_app.race_model_form">
+      <field name="name">Race Form</field>
+      <field name="model">race_app.race_model</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="finish" type="object" string="validate" class="oe_highlight" state="p"/>
+            <field name="state" widget = "statusbar"/>
+          </header>
+          <sheet>
+            <group>
+              <field name="circuit_id"/>
+              <field name="date"/>
+              <field name="piloted_ids"/>
+              <field name="pilot_id" attrs = "{'readonly':[('state','=','f')]}"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Calendar view -->
+
+    <record model="ir.ui.view" id="race_app.race_model_calendar">
+      <field name="name">Race Calendar</field>
+      <field name="model">race_app.race_model</field>
+      <field name="arch" type="xml">
+        <calendar date_start="date" color="circuit_id" mode="month" event_open_popup="true" form_view_id="enter.race_model_form" quick_add="true">
+          <field name="circuit_id"/>
+        </calendar>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="race_app.action_window_race">
+      <field name="name">race Window</field>
+      <field name="res_model">race_app.race_model</field>
+      <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+  </data>
+</odoo>

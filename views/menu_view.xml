@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+    <!-- Top menu item -->
+
+    <menuitem name="Race app" id="race_app.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Pilot tables" id="race_app.menu_pilot" parent="race_app.menu_root"/>
+    <menuitem name="Team tables" id="race_app.menu_team" parent="race_app.menu_root"/>
+    <menuitem name="Race tables" id="race_app.menu_race" parent="race_app.menu_root"/>
+
+    <!-- actions -->
+
+    
+    <menuitem name="Pilot" id="race_app.pilot_model_list" parent="race_app.menu_pilot" action="race_app.action_window_pilot"/> 
+    
+    <menuitem name="Piloted" id="race_app.piloted_model_list" parent="race_app.menu_pilot" action="race_app.action_window_piloted"/>
+ 
+    <menuitem name="Team" id="race_app.team_model_list" parent="race_app.menu_team" action="race_app.action_window_team"/>
+
+    <menuitem name="Car" id="race_app.car_model_list" parent="race_app.menu_team" action="race_app.action_window_car"/>
+
+    <menuitem name="Race" id="race_app.race_model_list" parent="race_app.menu_race" action="race_app.action_window_race"/>
+    <menuitem name="Circuit" id="race_app.circuit_model_list" parent="race_app.menu_race" action="race_app.action_window_circuit"/>
+  </data>
+</odoo>
