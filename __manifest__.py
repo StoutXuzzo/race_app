@@ -24,6 +24,7 @@
 
     # always loaded
     'data': [
+        'security/race_security.xml',
         'security/ir.model.access.csv',
         'views/car_view.xml',
         'views/circuit_view.xml',

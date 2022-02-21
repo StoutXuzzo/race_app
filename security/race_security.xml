@@ -1,0 +1,17 @@
+<odoo>
+  <record id="module_race_category" model="ir.module.category">
+    <field name="name">race</field>
+</record>
+<!-- race User Group -->
+<record id="race_group_pro" model="res.groups">
+    <field name="name">Pro</field>
+    <field name="category_id" ref="module_race_category"/>
+    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+</record>
+<!-- race Factultativo Group -->
+<record id="race_group_noob" model="res.groups">
+    <field name="name">Noob</field>
+    <field name="category_id" ref="module_race_category"/>
+    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+</record>
+</odoo>
