@@ -9,9 +9,9 @@ from odoo import models, fields, api
 class PilotModel(models.Model):
     _name = 'race_app.pilot_model'
     _description = 'Pilot Model'
-    _sql_constrain = [('pilot_unique_dni', 'UNIQUE (dni)', 'The DNI must be unique.'),
-    ('pilot_unique_id', 'UNIQUE (id)', 'This ID already exist.'),
-    ('pilot_unique_name_surname', 'UNIQUE (name, surname)', 'This pilot is already registred.')]
+    _sql_constraints = [('pilot_unique_dni', 'UNIQUE(dni)', 'The DNI must be unique.'),
+    ('pilot_unique_id', 'UNIQUE(id)', 'This ID already exist.'),
+    ('pilot_unique_name_surname', 'UNIQUE(name, surname)', 'This pilot is already registred.'),]
 
     id = fields.Integer("ID: ", default = lambda self: self.getId(), required=True, help="Pilot ID.")
     dni = fields.Char("DNI: ", required=True, index=True, help="Pilot DNI.")
@@ -20,7 +20,7 @@ class PilotModel(models.Model):
     gender = fields.Selection(string = "Gender: ", selection=[('m','Male'),('f','Female'),('o','Other')])
     photo = fields.Binary("Photo: ", help="Pilot photo.")
     phone = fields.Char("Phone: ", index=True, help="Pilot phone.")
-    email = fields.Char("Email: ", index=True, help="Pilot email.")
+    email = fields.Char("Email: ", index=True, help="Pilot email.", required=True)
     winNum = fields.Integer("Number of wins: ", compute="countWins", store=True)
     noWin = fields.Selection(selection=[('s','s'),('n','n')], default='n', store=True)
 
@@ -44,7 +44,7 @@ class PilotModel(models.Model):
             if dni[-1] == code[num]:
                 return dni
             else:
-                return True
+                raise ValidationError('The DNI is not correct.')
         else:
             raise ValidationError('The DNI is not correct.')
 
